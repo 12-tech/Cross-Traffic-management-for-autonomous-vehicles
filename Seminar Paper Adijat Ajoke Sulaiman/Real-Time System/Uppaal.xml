@@ -1,0 +1,108 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE nta PUBLIC '-//Uppaal Team//DTD Flat System 1.1//EN' 'http://www.it.uu.se/research/group/darts/uppaal/flat-1_2.dtd'>
+<nta>
+	<declaration>
+chan arrival,task_active,complete,earliest_deadline,service;
+
+
+bool pass = false;</declaration>
+	<template>
+		<name x="5" y="5">TBS</name>
+		<declaration>// Place local declarations here.</declaration>
+		<location id="id0" x="-93" y="-93">
+			<name x="-103" y="-127">idle</name>
+		</location>
+		<location id="id1" x="76" y="-93">
+			<name x="66" y="-127">ready</name>
+		</location>
+		<location id="id2" x="76" y="34">
+			<name x="66" y="0">schedule</name>
+		</location>
+		<location id="id3" x="-93" y="25">
+			<name x="-102" y="-8">Execute</name>
+		</location>
+		<init ref="id0"/>
+		<transition>
+			<source ref="id3"/>
+			<target ref="id0"/>
+			<label kind="synchronisation" x="-127" y="-51">complete!</label>
+		</transition>
+		<transition>
+			<source ref="id1"/>
+			<target ref="id2"/>
+			<label kind="synchronisation" x="34" y="-34">earliest_deadline!</label>
+		</transition>
+		<transition>
+			<source ref="id2"/>
+			<target ref="id3"/>
+			<label kind="synchronisation" x="-34" y="8">service!</label>
+		</transition>
+		<transition>
+			<source ref="id1"/>
+			<target ref="id1"/>
+			<label kind="synchronisation" x="102" y="-85">task_active!</label>
+			<nail x="102" y="-34"/>
+			<nail x="144" y="-93"/>
+		</transition>
+		<transition>
+			<source ref="id0"/>
+			<target ref="id1"/>
+			<label kind="synchronisation" x="-51" y="-110">arrival!</label>
+		</transition>
+	</template>
+	<template>
+		<name>sys</name>
+		<location id="id4" x="-85" y="-59">
+			<name x="-95" y="-93">idle</name>
+		</location>
+		<location id="id5" x="84" y="-59">
+			<name x="74" y="-93">ready</name>
+		</location>
+		<location id="id6" x="110" y="110">
+			<name x="100" y="76">schedule</name>
+		</location>
+		<location id="id7" x="-85" y="110">
+			<name x="-94" y="77">Execute</name>
+		</location>
+		<init ref="id4"/>
+		<transition>
+			<source ref="id7"/>
+			<target ref="id4"/>
+			<label kind="synchronisation" x="-119" y="-17">complete?</label>
+		</transition>
+		<transition>
+			<source ref="id5"/>
+			<target ref="id6"/>
+			<label kind="synchronisation" x="42" y="0">earliest_deadline?</label>
+		</transition>
+		<transition>
+			<source ref="id6"/>
+			<target ref="id7"/>
+			<label kind="synchronisation" x="-8" y="93">service?</label>
+		</transition>
+		<transition>
+			<source ref="id5"/>
+			<target ref="id5"/>
+			<label kind="synchronisation" x="110" y="-51">task_active?</label>
+			<nail x="110" y="0"/>
+			<nail x="152" y="-59"/>
+		</transition>
+		<transition>
+			<source ref="id4"/>
+			<target ref="id5"/>
+			<label kind="synchronisation" x="-34" y="-76">arrival?</label>
+		</transition>
+	</template>
+	<system>// Place template instantiations here.
+tbs1 = TBS();
+p2 = sys();
+// List one or more processes to be composed into a system.
+system tbs1, p2;
+    </system>
+	<queries>
+		<query>
+			<formula></formula>
+			<comment></comment>
+		</query>
+	</queries>
+</nta>
