@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE nta PUBLIC '-//Uppaal Team//DTD Flat System 1.1//EN' 'http://www.it.uu.se/research/group/darts/uppaal/flat-1_2.dtd'>
+<nta>
+	<declaration>chan tasks_arrive, earliest_deadline, complete;</declaration>
+	<template>
+		<name x="5" y="5">EDF</name>
+		<declaration>// Place local declarations here.</declaration>
+		<location id="id0" x="0" y="0">
+			<name x="-10" y="-34">idle</name>
+		</location>
+		<location id="id1" x="178" y="0">
+			<name x="168" y="-34">ready</name>
+		</location>
+		<location id="id2" x="59" y="119">
+			<name x="41" y="85">execute</name>
+		</location>
+		<init ref="id0"/>
+		<transition>
+			<source ref="id2"/>
+			<target ref="id0"/>
+			<label kind="synchronisation" x="0" y="42">complete!</label>
+		</transition>
+		<transition>
+			<source ref="id1"/>
+			<target ref="id2"/>
+			<label kind="synchronisation" x="110" y="34">earliest_deadline!</label>
+		</transition>
+		<transition>
+			<source ref="id0"/>
+			<target ref="id1"/>
+			<label kind="synchronisation" x="42" y="-17">tasks_arrive!</label>
+		</transition>
+	</template>
+	<template>
+		<name>sys</name>
+		<location id="id3" x="83" y="141">
+			<name x="65" y="107">execute</name>
+		</location>
+		<location id="id4" x="24" y="22">
+			<name x="14" y="-12">idle</name>
+		</location>
+		<location id="id5" x="202" y="22">
+			<name x="192" y="-12">ready</name>
+		</location>
+		<init ref="id4"/>
+		<transition>
+			<source ref="id3"/>
+			<target ref="id4"/>
+			<label kind="synchronisation" x="24" y="64">complete?</label>
+		</transition>
+		<transition>
+			<source ref="id5"/>
+			<target ref="id3"/>
+			<label kind="synchronisation" x="134" y="56">earliest_deadline?</label>
+		</transition>
+		<transition>
+			<source ref="id4"/>
+			<target ref="id5"/>
+			<label kind="synchronisation" x="66" y="5">tasks_arrive?</label>
+		</transition>
+	</template>
+	<system>// Place template instantiations here.
+edf1 = EDF();
+p2 = sys();
+// List one or more processes to be composed into a system.
+
+system edf1, p2;</system>
+	<queries>
+		<query>
+			<formula></formula>
+			<comment></comment>
+		</query>
+	</queries>
+</nta>
