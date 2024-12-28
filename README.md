@@ -3,7 +3,7 @@ This project focuses on developing a traffic management system for autonomous ve
 
 We chose FIFO because of its simplicity and effectiveness in handling traffic at controlled intersections, especially for autonomous vehicles that require precise scheduling. The system is scheduled with FreeRTOS to ensure real-time task management and smooth operation in a multi-tasking environment.
 
-# Key Features:
+## Key Features:
 
 FIFO Scheduling: Ensures fair and orderly management of vehicles at the intersection based on arrival time.
 Real-Time Control: FreeRTOS handles real-time scheduling for optimal traffic flow and system performance.
